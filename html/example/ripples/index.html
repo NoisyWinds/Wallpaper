@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>ripples</title>
+	<style>
+	    *{
+	    	padding: 0;
+	    	margin: 0;
+	    	box-sizing: border-box;
+	    }
+		body{
+			width: 100vw;
+			height: 100vh;
+			background: url("test.jpeg");
+		}
+		.container{
+			width: 100%;
+			height: 100%;
+		}
+	</style>
+	<script src="jquery-3.2.1.min.js"></script>
+	<script src="jquery.ripples-min.js"></script>
+</head>
+<body>
+	<div class="container"></div>
+	<script>
+		$('.container').ripples({
+			resolution: 512,
+			dropRadius: 20,
+			perturbance: 0.04,
+		})
+	</script>
+</body>
+</html>

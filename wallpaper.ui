@@ -7,19 +7,19 @@
     <x>0</x>
     <y>0</y>
     <width>350</width>
-    <height>330</height>
+    <height>360</height>
    </rect>
   </property>
   <property name="minimumSize">
    <size>
     <width>350</width>
-    <height>330</height>
+    <height>360</height>
    </size>
   </property>
   <property name="maximumSize">
    <size>
     <width>350</width>
-    <height>330</height>
+    <height>360</height>
    </size>
   </property>
   <property name="focusPolicy">
@@ -39,11 +39,11 @@
    <set>Qt::ImhNone</set>
   </property>
   <widget class="QWidget" name="centralWidget">
-   <widget class="QPushButton" name="startButton">
+   <widget class="QPushButton" name="hoverButton">
     <property name="geometry">
      <rect>
-      <x>45</x>
-      <y>260</y>
+      <x>50</x>
+      <y>290</y>
       <width>250</width>
       <height>40</height>
      </rect>
@@ -55,10 +55,10 @@
      </size>
     </property>
     <property name="styleSheet">
-     <string notr="true">background-color:rgb(255, 170, 0);color:white;border-radius:5px;border:none;font-size:16px;</string>
+     <string notr="true">background-color:rgb(255, 170, 0);color:white;border-radius:5px;border:none;font-size:14px;</string>
     </property>
     <property name="text">
-     <string>start</string>
+     <string>关闭</string>
     </property>
    </widget>
    <widget class="QWidget" name="layoutWidget">
@@ -139,9 +139,6 @@
      <font>
       <family>微软雅黑</family>
       <pointsize>-1</pointsize>
-      <weight>75</weight>
-      <bold>true</bold>
-      <kerning>false</kerning>
      </font>
     </property>
     <property name="layoutDirection">
@@ -278,59 +275,32 @@
      </item>
     </layout>
    </widget>
-   <zorder>startButton</zorder>
-   <zorder>label_3</zorder>
-   <zorder>layoutWidget</zorder>
-   <zorder>label_2</zorder>
-   <zorder>label</zorder>
-   <zorder>startButton</zorder>
-   <zorder>layoutWidget</zorder>
-   <zorder>label</zorder>
-   <zorder>label_2</zorder>
-   <zorder>label_3</zorder>
-   <zorder>layoutWidget</zorder>
+   <widget class="QLabel" name="label_4">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>250</y>
+      <width>161</width>
+      <height>21</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">font-size:14px;</string>
+    </property>
+    <property name="text">
+     <string>开启/关闭 hover交互:</string>
+    </property>
+   </widget>
   </widget>
  </widget>
  <layoutdefault spacing="6" margin="11"/>
  <resources>
   <include location="icon.qrc"/>
  </resources>
- <connections>
-  <connection>
-   <sender>startButton</sender>
-   <signal>clicked()</signal>
-   <receiver>Wallpaper</receiver>
-   <slot>createBackground()</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>237</x>
-     <y>220</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>277</x>
-     <y>251</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>path_button</sender>
-   <signal>clicked()</signal>
-   <receiver>Wallpaper</receiver>
-   <slot>chooseHtmlPath()</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>386</x>
-     <y>149</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>408</x>
-     <y>212</y>
-    </hint>
-   </hints>
-  </connection>
- </connections>
+ <connections/>
  <slots>
   <slot>chooseHtmlPath()</slot>
   <slot>createBackground()</slot>
+  <slot>on_path_changed()</slot>
  </slots>
 </ui>

@@ -5,6 +5,5 @@
 namespace Utils {
 
 HWND GetWorkerW();
-
 }
 #endif // UTILS_H

@@ -1,0 +1,105 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>bubbles</title>
+    <style>
+    *{
+        padding:0;
+        margin:0;
+    }
+        body,html{
+            width:100%;
+            height: 100%;
+            overflow:hidden;
+        }
+        .canvas{
+            background: url("bg.jpeg");
+            width:100%;
+            height:100%;
+        }
+    </style>
+</head>
+<body>
+    <canvas class="canvas"><p>effects require use canvas,Your browser need update...</p></canvas>
+<script>
+    (function () {
+        var bubbles = function (options) {
+            this.windForce = 0.3;
+            this.buoyantForce = 1;
+            this.interval = 200;
+            this.min_r = 20;
+            this.max_r = 60;
+        };
+        bubbles.prototype.init = function(selector){
+            this.canvas = document.querySelector(selector);
+            this.canvas.width =  document.body.offsetWidth;
+            this.canvas.height = document.body.offsetHeight;
+            console.log(document.width)
+            this.ctx = this.canvas.getContext("2d");
+            this.bubbles = [];
+            this.cursor = false;
+            this.img = new Image();
+            this.img.src = "test.png";
+            this.canvas.addEventListener("mousemove", this.createBubbles.bind(this));
+            requestAnimationFrame(this.render.bind(this));
+        };
+        bubbles.prototype.createBubbles = function () {
+            if (this.cursor) {
+                var nowCursor = {x:event.offsetX,y:event.offsetY};
+                var xbised = Math.abs(this.cursor.x - nowCursor.x);
+                var ybised = Math.abs(this.cursor.y - nowCursor.y);
+                if (xbised > this.interval || ybised > this.interval) {
+                    var bubble = {
+                        x: nowCursor.x,
+                        y: nowCursor.y,
+                        r:1 + (Math.random() * this.min_r),
+                        rotate:1 + (Math.random() * 360),
+                        skew:30 + (Math.random() * 80),
+                        maxSkew:30 + (Math.random() * 80),
+                        skewSpeed:-0.5 + (Math.random() * 1.2),
+                        wind: this.cursor.x > nowCursor.x ? this.windForce : this.windForce * -1,
+                        buoyant: this.buoyantForce * (Math.random() + 1)
+                    };
+                    this.bubbles.push(bubble);
+                    this.cursor = {x:event.offsetX,y:event.offsetY};
+                }
+            } else {
+                this.cursor = {x:event.offsetX,y:event.offsetY};
+            }
+        };
+        bubbles.prototype.render = function () {
+            this.ctx.clearRect(0,0,this.canvas.width,this.canvas.height);
+            for(var i = 0;i<this.bubbles.length;i++)
+            {
+                var bubble = this.bubbles[i];
+                if(bubble.x < -50 || bubble.x > this.canvas.width + 50 || bubble.y < -50){
+                    this.bubbles.splice(i,1);
+                }
+            }
+            for (var i = 0; i < this.bubbles.length; i++) {
+                this.ctx.beginPath();
+                var bubble = this.bubbles[i];
+                this.ctx.drawImage(this.img,bubble.x, bubble.y, bubble.r,bubble.r);
+                bubble.x -= bubble.wind + bubble.skewSpeed;
+                if(bubble.skew <= 0){
+                    bubble.skew = bubble.maxSkew;
+                    bubble.skewSpeed *= -1;
+                }else{
+                    bubble.skew -= Math.random(0,5);
+                }
+                bubble.y -= bubble.buoyant;
+                bubble.r < this.max_r ? bubble.r += 0.5 : bubble.r = this.max_r;
+            }
+            requestAnimationFrame(this.render.bind(this))
+        };
+        window.bubbles = bubbles;
+    })();
+    var b = new bubbles();
+    b.init(".canvas");
+</script>
+</body>
+</html>
